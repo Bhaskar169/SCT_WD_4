@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .todo-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    button {
+      background-color: #ff5e57;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      gap: 10px;
+    }
+
+    .checkbox {
+      height: 20px;
+      width: 20px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .checkbox.checked::after {
+      content: "✔";
+      position: absolute;
+      top: -2px;
+      left: 4px;
+      font-size: 16px;
+      color: green;
+    }
+
+    li.completed span {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    li span {
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    li button {
+      background: transparent;
+      border: none;
+      color: red;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    #congratsMsg {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h2>To-Do List 📝</h2>
+    <div class="input-section">
+      <input type="text" id="taskInput" placeholder="Add your task">
+      <button onclick="addTask()">ADD</button>
+    </div>
+    <ul id="taskList"></ul>
+    <p id="congratsMsg" class="hidden">🎉 Congrats! All tasks are done.</p>
+  </div>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (taskText === "") return;
+
+      const li = document.createElement("li");
+
+      const checkbox = document.createElement("div");
+      checkbox.className = "checkbox";
+      checkbox.onclick = () => {
+        checkbox.classList.toggle("checked");
+        li.classList.toggle("completed");
+        checkAllTasksDone();
+      };
+
+      const span = document.createElement("span");
+      span.textContent = taskText;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "✖";
+      deleteBtn.onclick = () => {
+        li.remove();
+        checkAllTasksDone();
+      };
+
+      li.appendChild(checkbox);
+      li.appendChild(span);
+      li.appendChild(deleteBtn);
+
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+      checkAllTasksDone();
+    }
+
+    function checkAllTasksDone() {
+      const tasks = document.querySelectorAll("#taskList li");
+      const completedTasks = document.querySelectorAll("#taskList li.completed");
+      const congratsMsg = document.getElementById("congratsMsg");
+
+      if (tasks.length > 0 && tasks.length === completedTasks.length) {
+        congratsMsg.classList.remove("hidden");
+      } else {
+        congratsMsg.classList.add("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
