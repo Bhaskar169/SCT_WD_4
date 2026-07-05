@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Log</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="page-header">
+      <div class="header-left">
+        <h1 class="title">The Daily Log</h1>
+        <p class="subtitle" id="today-date"></p>
+      </div>
+      <div class="stamp" id="stamp">ALL CLEAR</div>
+    </header>
+
+    <form class="entry-row" id="entry-form">
+      <span class="entry-number" id="entry-number">01</span>
+      <input
+        type="text"
+        id="entry-input"
+        class="entry-input"
+        placeholder="Write today's next line..."
+        autocomplete="off"
+        maxlength="140"
+      />
+      <select id="entry-priority" class="entry-priority" aria-label="Priority">
+        <option value="normal">normal</option>
+        <option value="urgent">urgent</option>
+      </select>
+      <button type="submit" class="entry-add" aria-label="Add entry">+</button>
+    </form>
+
+    <nav class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Open</button>
+      <button class="filter-btn" data-filter="completed">Closed</button>
+      <button class="clear-btn" id="clear-completed">Clear closed</button>
+    </nav>
+
+    <ul class="log-list" id="log-list"></ul>
+
+    <p class="empty-state" id="empty-state">Nothing logged yet. The page is waiting.</p>
+
+    <footer class="page-footer">
+      <span id="remaining-count">0 lines open</span>
+    </footer>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
